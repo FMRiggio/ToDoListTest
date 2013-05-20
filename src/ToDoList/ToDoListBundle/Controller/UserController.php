@@ -50,6 +50,7 @@ class UserController extends Controller
 				$password = $factory->getEncoder($user)
 									->encodePassword($user->getPassword(), $user->getSalt());
 				$user->setPassword($password);
+				$user->setFbUserId('');
 
 				$em = $this->getDoctrine()->getEntityManager();
 				$em->persist($user);
@@ -117,11 +118,11 @@ class UserController extends Controller
 			$password = $factory->getEncoder($user)
 								->encodePassword(uniqid(), $user->getSalt());
 			$user->setPassword($password);
-	
+
 			$em = $this->getDoctrine()->getEntityManager();
 			$em->persist($user);
 			$em->flush();
-			
+
 		}
 
         $token = new UsernamePasswordToken($user, $user->getPassword(), 'secured_area', $user->getRoles());
@@ -132,7 +133,7 @@ class UserController extends Controller
  
         $url = $this->get('router')->generate('_index');
  
- 		echo $url;die;
+ 		echo $url;
         return NULL;
 
 	}

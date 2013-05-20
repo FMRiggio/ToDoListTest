@@ -48,7 +48,7 @@
 				  			fbUserId:  response.id
 				  		},
 				  		success: function(redirectUrl) {
-				  			top.location.href = redirectUrl;
+				  			location.href = redirectUrl;
 				  		}
 					});		
 				}
@@ -76,7 +76,7 @@
 
 				FB.Event.subscribe('auth.logout',
 					function(response) {
-						top.location.href = '/todolist/user/logout';
+						location.href = '/todolist/user/logout';
 					}
 				);
 
