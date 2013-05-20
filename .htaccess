@@ -1,0 +1,20 @@
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+
+# DEV
+    RewriteBase /
+
+#PROD
+#    RewriteBase /todolist
+
+    RewriteRule ^bundles/todolist/css/(.*) web/bundles/todolist/css/$1 [L]
+    RewriteRule ^bundles/todolist/images/(.*) web/bundles/todolist/images/$1 [L]
+    RewriteRule ^bundles/todolist/js/(.*) web/bundles/todolist/js/$1 [L]
+
+# DEV
+    RewriteRule ^(.*)$ web/app_dev.php [QSA,L]
+
+#PROD
+#    RewriteRule ^(.*)$ app.php [QSA,L]
+
+</IfModule>

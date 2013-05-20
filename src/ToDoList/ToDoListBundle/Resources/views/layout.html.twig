@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+    <head>
+
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title></title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width">
+
+		<link rel="icon" sizes="16x16" href="{{ asset('bundles/todolist/images/favicon.ico') }}" />
+		<link rel="stylesheet" href="{{ asset('bundles/todolist/css/normalize.css') }}" />
+		<link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:200' rel='stylesheet' type='text/css'>
+		<link rel="stylesheet" href="{{ asset('bundles/todolist/css/main.css') }}" />
+		<script src="{{ asset('bundles/todolist/js/vendor/modernizr-2.6.2.min.js') }}"></script>
+
+		<link rel="stylesheet" href="{{ asset('bundles/todolist/css/redmond/jquery-ui-1.10.3.custom.css') }}" />
+		<script src="{{ asset('bundles/todolist/js/vendor/modernizr-2.6.2.min.js') }}"></script>
+
+    </head>
+    <body>
+
+		<div id="fb-root"></div>
+		<script>
+
+			// Additional JS functions here
+			window.fbAsyncInit = function() {
+				FB.init({
+					appId      : '661005733926544', // App ID
+					channelUrl : 'www.good2know.it/channel.html', // Channel File
+					status     : true, // check login status
+					cookie     : true, // enable cookies to allow the server to access the session
+					xfbml      : true  // parse XFBML
+				});
+
+				function fbSignIn(response) {
+					$.ajax({
+						type: 'POST',
+						url:  '/todolist/user/fb-registration',
+				  		data: {
+				  			firstname: response.first_name,
+				  			lastname:  response.last_name,
+				  			username:  response.username,
+				  			email:     response.email,
+				  			fbUserId:  response.id
+				  		},
+				  		success: function(redirectUrl) {
+				  			top.location.href = redirectUrl;
+				  		}
+					});		
+				}
+
+				$('.fb_login').click(function(event) {
+					event.preventDefault();
+					FB.login(function(response) {}, {scope: 'email'});
+				});
+
+				$('.logout').click(function(event) {
+					event.preventDefault();
+					FB.logout();
+				});
+
+				FB.Event.subscribe('auth.login',
+					function(response) {
+						console.log(response);
+						if (response.authResponse) {
+							FB.api('/me', function(response) {
+								fbSignIn(response);
+							});
+						}
+					}
+				);
+
+				FB.Event.subscribe('auth.logout',
+					function(response) {
+						top.location.href = '/todolist/user/logout';
+					}
+				);
+
+			};
+	
+			// Load the SDK asynchronously
+			(function(d){
+				var js, id = 'facebook-jssdk', ref = d.getElementsByTagName('script')[0];
+				if (d.getElementById(id)) {return;}
+				js = d.createElement('script'); js.id = id; js.async = true;
+				js.src = "//connect.facebook.net/en_US/all.js";
+				ref.parentNode.insertBefore(js, ref);
+			}(document));
+		</script>
+
+
+    	<div class="wrapper">
+	    	{% block content_header %}
+		    	<header>
+		    		<h1>Your To Do List</h1>
+		    		<nav class="clearfix">
+
+						{% if app.request.attributes.get('_route') != '_user_login' and 
+						      app.request.attributes.get('_route') != '_user_registration' and
+						      app.request.attributes.get('_route') != '_user_registration_complete' and 
+						      app.request.attributes.get('_route') != '_admin' and
+						      app.request.attributes.get('_route') != '_admin_edit_task' %}
+
+			    			<h3>
+			    				Hi {{ app.security.getToken().getUser().getFirstname() }} {{ app.security.getToken().getUser().getLastname() }}!
+			    				<a href="{{ path('_user_logout') }}" class="logout">(Logout)</a>
+			    			</h3>
+
+						{% endif %}
+
+			            {% block content_header_more %}
+
+							{% if app.request.attributes.get('_route') == '_user_login' %}
+								<a href="{{ path('_user_registration') }}">Register</a>
+							{% endif %}
+
+							{% if app.request.attributes.get('_route') == '_index' %}
+
+								<a href="{{ path('_add_task') }}">+ Add Task</a>
+
+							{% elseif app.request.attributes.get('_route') == '_add_task'  or
+									  app.request.attributes.get('_route') == '_edit_task' or
+									  app.request.attributes.get('_route') == '_user_registration'
+							%}
+
+								<a href="{{ path('_index') }}"><span class="entypo-left-open-big"></span>Back</a>
+
+							{% endif %}
+
+			            {% endblock %}
+
+		    		</nav>
+
+		    	</header>
+
+	    	{% endblock %}
+
+	        <div id="content">
+	            {% block content %}{% endblock %}
+	        </div>
+		</div>
+        <script src="{{ asset('bundles/todolist/js/vendor/jquery-1.9.1.min.js') }}"></script>
+        <script src="{{ asset('bundles/todolist/js/vendor/jquery-ui-1.10.3.custom.min.js') }}"></script>
+        <script src="{{ asset('bundles/todolist/js/plugins.js') }}"></script>
+        <script src="{{ asset('bundles/todolist/js/main.js') }}"></script>
+
+    </body>
+</html>

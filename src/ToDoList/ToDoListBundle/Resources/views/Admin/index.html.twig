@@ -1,0 +1,52 @@
+{% extends "ToDoListBundle::layout.html.twig" %}
+
+{% block title username ~ " Tasklist" %}
+
+{% block content %}
+
+	<ul class="tasklist">
+
+	{% for task in tasklist %}
+
+		<li class="clearfix {% if task.status == 'completed' %}through{% endif %}">
+
+			<span class="task"><em>{{ task.userId.getUsername() }}</em> - {{ task.task }}</span>
+
+			<a href="{{ path('_admin_edit_task', {'taskId': task.id}) }}" class="edit">
+				<span class="entypo-pencil"></span>Edit
+			</a>
+
+			{% if task.status == 'active' %}
+
+				<a href="{{ path('_admin_complete_task', {'taskId': task.id}) }}" class="task_status complete">
+					<span class="entypo-check"></span>
+					Mark as complete
+				</a>
+
+			{% elseif task.status == 'completed' %}
+
+				<a href="{{ path('_admin_reactive_task', {'taskId': task.id}) }}" class="task_status reactive">
+					<span class="entypo-reply"></span>
+					Reactive
+				</a>
+
+			{% endif %}
+
+			<a href="{{ path('_admin_delete_task', {'taskId': task.id}) }}" class="delete">
+				<span class="entypo-cancel"></span>
+				Delete
+			</a>
+
+		</li>
+
+    {% else %}
+
+        <li>No Tasks found</li>
+
+    {% endfor %}
+
+	</ul>
+
+	<div id="dialog" title="Are you sure?"></div>
+
+{% endblock %}

@@ -1,0 +1,10 @@
+ToDoList\ToDoListBundle\Entity\User:
+    properties:
+        firstname:
+            - NotBlank: ~
+        lastname:
+            - NotBlank: ~
+        email:
+            - NotBlank: ~
+        password:
+            - NotBlank: ~

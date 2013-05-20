@@ -1,0 +1,71 @@
+_index:
+    resource: "@ToDoListBundle/Controller/IndexController.php"
+    type:     annotation
+
+_add_task:
+    resource: "@ToDoListBundle/Controller/IndexController.php"
+    type:     annotation
+
+_edit_task:
+    resource: "@ToDoListBundle/Controller/IndexController.php"
+    type:     annotation
+    
+_delete_task:
+    resource: "@ToDoListBundle/Controller/IndexController.php"
+    type:     annotation
+
+_complete_task:
+    resource: "@ToDoListBundle/Controller/IndexController.php"
+    type:     annotation
+
+_reactive_task:
+    resource: "@ToDoListBundle/Controller/IndexController.php"
+    type:     annotation
+
+_user:
+    resource: "@ToDoListBundle/Controller/UserController.php"
+    type:     annotation
+
+_user_login:
+    resource: "@ToDoListBundle/Controller/UserController.php"
+    type:     annotation
+
+_user_logout:
+    resource: "@ToDoListBundle/Controller/UserController.php"
+    type:     annotation
+
+_user_check_login:
+    resource: "@ToDoListBundle/Controller/UserController.php"
+    type:     annotation
+    
+_user_registration:
+    resource: "@ToDoListBundle/Controller/UserController.php"
+    type:     annotation
+
+_user_registration_complete:
+    resource: "@ToDoListBundle/Controller/UserController.php"
+    type:     annotation
+
+_user_fb_registration:
+    resource: "@ToDoListBundle/Controller/UserController.php"
+    type:     annotation
+
+_admin:
+    resource: "@ToDoListBundle/Controller/AdminController.php"
+    type:     annotation
+
+_admin_edit_task:
+    resource: "@ToDoListBundle/Controller/AdminController.php"
+    type:     annotation
+    
+_admin_delete_task:
+    resource: "@ToDoListBundle/Controller/AdminController.php"
+    type:     annotation
+
+_admin_complete_task:
+    resource: "@ToDoListBundle/Controller/AdminController.php"
+    type:     annotation
+
+_admin_reactive_task:
+    resource: "@ToDoListBundle/Controller/AdminController.php"
+    type:     annotation

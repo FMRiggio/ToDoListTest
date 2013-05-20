@@ -1,0 +1,17 @@
+{% extends "ToDoListBundle::layout.html.twig" %}
+
+{% block title "Add Task" %}
+
+{% block content %}
+    <form action="{{ path('_add_task') }}" method="POST" id="addtask_form" class="clearfix">
+
+    	<h4>Add New Task</h4>
+    
+        {{ form_errors(form) }}
+
+        {{ form_row(form.task) }}
+
+        {{ form_rest(form) }}
+        <input type="submit" value="Save" class="button" />
+    </form>
+{% endblock %}

@@ -1,0 +1,25 @@
+{% extends "ToDoListBundle::layout.html.twig" %}
+
+{% block content %}
+	<form action="{{ path("_user_check_login") }}" method="post" id="login" class="clearfix">
+    	<h4>Login</h4>
+    
+	    {% if error %}
+	        <div class="error">{{ error.message }}</div>
+	    {% endif %}
+
+        <div>
+            <label for="username">Username</label>
+            <input type="text" id="username" name="_username" value="{{ last_username }}" />
+        </div>
+
+        <div>
+            <label for="password">Password</label>
+            <input type="password" id="password" name="_password" />
+        </div>
+
+        <input type="submit" value="Login" class="button" />
+    </form>
+    <h4 class="blue">or</h4>
+    <a href="#" class="fb_login">Sign In with facebook</a>
+{% endblock %}

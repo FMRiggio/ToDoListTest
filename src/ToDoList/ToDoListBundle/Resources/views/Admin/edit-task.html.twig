@@ -1,0 +1,15 @@
+{% extends "ToDoListBundle::layout.html.twig" %}
+
+{% block title "Edit Task" %}
+
+{% block content %}
+    <form action="{{ path('_admin_edit_task', {'taskId': task.id}) }}" method="POST" id="edittask_form" class="clearfix">
+    	<h4>Edit Task</h4>
+        {{ form_errors(form) }}
+
+        {{ form_row(form.task) }}
+
+        {{ form_rest(form) }}
+        <input type="submit" value="Save" class="button" />
+    </form>
+{% endblock %}
